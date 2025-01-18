@@ -1,7 +1,21 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { Result } from "postcss";
 
 
 const Navbar = () => {
+     const {user,Logout } = useContext(AuthContext)
+     const handleLogout =()=>{
+                Logout()
+                .then(result =>{
+                    console.log(result.user)
+                })
+                .catch(error =>{
+                    console.log(error)
+                })
+     }
+
     const link = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/about'>About</NavLink></li>
@@ -39,9 +53,8 @@ const Navbar = () => {
             
                 <a className="btn btn-ghost text-xl">
                 <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo"/>
-                    
-                    
-                    Skyroof</a>
+                
+                Skyroof</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -49,17 +62,18 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                {
+                    user ?<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
                         <img
                             alt="Tailwind CSS Navbar component"
                             src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
                     </div>
-                </div>
-
-
-
-                <a className="btn">Login</a>
+                    <Link onClick={handleLogout} className="btn ">sign Out </Link>
+                </div> : <Link className="btn ">Login</Link>
+                }
+               
+             
             </div>
         </div>
     );
