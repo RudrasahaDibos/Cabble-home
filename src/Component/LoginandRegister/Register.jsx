@@ -2,11 +2,14 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+
+
+
 
 
 const Register = () => {
     const {Createuser} = useContext(AuthContext)
-    
     
         const {
           register,
@@ -19,15 +22,18 @@ const Register = () => {
             Createuser(email,password)
             .then(result =>{
                 console.log(result.user)
+                console.log(toast.success('Successfully login'))
+              
             })
             .catch(error =>{
                 console.log(error)
+               console.log( toast.error(error))
             })
         }
 
     return (
         <div>
-            <section className=" bg-gray-100">
+            <section className=" bg-gray-100 mt-10">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 max-w-7xl ">
 
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
