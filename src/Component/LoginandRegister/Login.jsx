@@ -1,42 +1,50 @@
+import { Link } from "react-router-dom";
 
 
 const Login = () => {
+
     return (
         <div>
-            <div className="bg-sky-100 flex justify-center items-center h-screen">
-                {/* <!-- Left: Image --> */}
-                <div className="w-1/2 h-screen hidden lg:block">
-                    <img src="https://img.freepik.com/fotos-premium/imagen-fondo_910766-187.jpg?w=826" alt="Placeholder Image" className="object-cover w-full h-full"/>
-                </div>
-                {/* <!-- Right: Login Form --> */}
-                <div className="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
-                    <h1 className="text-2xl font-semibold mb-4">Login</h1>
-                    <form action="#" method="POST">
-                        {/* <!-- Username Input --> */}
-                        <div className="mb-4 bg-sky-100">
-                        <label htmlFor="username" className="block text-gray-600">Username</label>
-                        <input type="text" id="username" name="username" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" />
+            <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+           
+                <div className="max-w-md w-full bg-gray-900 rounded-xl shadow-lg p-8">
+                    <h2 className="text-2xl font-bold text-white mb-6 text-center">Sign In</h2>
+
+                    <form className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Email</label>
+                            <input
+                                type="email"
+                                className="w-full px-4 py-2 border text-white border-gray-300 rounded-lg dark:bg-gray-700  focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                                placeholder="your@email.com"
+                            />
                         </div>
-                        {/* <!-- Password Input --> */}
-                        <div className="mb-4">
-                            <label htmlFor="password" className="block text-gray-800">Password</label>
-                            <input type="password" id="password" name="password" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" />
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input
+                                type="password"
+                                className="w-full px-4 py-2 border text-white border-gray-300 rounded-lg focus:ring-2 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                                placeholder="••••••••"
+                            />
                         </div>
-                        {/* <!-- Remember Me Checkbox --> */}
-                        <div className="mb-4 flex items-center">
-                            <input type="checkbox" id="remember" name="remember" className="text-red-500"/>
-                                <label htmlFor="remember" className="text-green-900 ml-2">Remember Me</label>
+
+                        <div className="flex items-center justify-between">
+                            <label className="flex items-center">
+                                <input type="checkbox" className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                                <span className="ml-2 text-sm text-gray-600">Remember me</span>
+                            </label>
+                            <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500">Forgot password?</a>
                         </div>
-                        {/* <!-- Forgot Password Link --> */}
-                        <div className="mb-6 text-blue-500">
-                            <a href="#" className="hover:underline">Forgot Password?</a>
-                        </div>
-                        {/* <!-- Login Button --> */}
-                        <button type="submit" className="bg-red-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full">Login</button>
+
+                        <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors">
+                            Sign In
+                        </button>
                     </form>
-                    {/* <!-- Sign up  Link --> */}
-                    <div className="mt-6 text-green-500 text-center">
-                        <a href="#" className="hover:underline">Sign up Here</a>
+
+                    <div className="mt-6 text-center text-sm text-gray-600">
+                        Do not have an account?
+                        <Link  to='/register' className="text-indigo-600 hover:text-indigo-500 font-medium">Sign up</Link>
                     </div>
                 </div>
             </div>
