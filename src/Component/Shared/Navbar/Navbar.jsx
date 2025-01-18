@@ -36,7 +36,12 @@ const Navbar = () => {
                         {link}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">Skyroof</a>
+            
+                <a className="btn btn-ghost text-xl">
+                <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo"/>
+                    
+                    
+                    Skyroof</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
