@@ -4,12 +4,15 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { sendEmailVerification } from "firebase/auth";
+
+
 
 
 
 
 const Register = () => {
-    const { Createuser } = useContext(AuthContext)
+    const { Createuser,UpdateUserProfile } = useContext(AuthContext)
     const [passwordeye, setpassword] = useState(false)
     const [confirmpassword, setconfirmpassword] = useState(false)
     const handlepasswordClick = () => {
@@ -34,16 +37,24 @@ const Register = () => {
                 console.log(password)
 
     const onSubmit = (data) => {
-        const { email, password } = data
-
-
-
-
+        const { email, password,name,image } = data
 
         Createuser(email, password)
             .then(result => {
-                console.log(result.user)
-                console.log(toast.success('Successfully login'))
+                UpdateUserProfile(name,image)
+                .then(()=>{
+                    console.log(result.user)
+                    console.log(toast.success('Successfully login'))
+                })
+                .catch(error =>{
+                    console.log(error)
+                })
+            //   sendemail verification 
+                sendEmailVerification(result.user)
+                .then(() => {
+                    toast.success('Please check you gmail . we Send message Please Response Other wise No Registetion')
+                });
+              
 
             })
             .catch(error => {
@@ -73,6 +84,17 @@ const Register = () => {
                                     />
                                     {errors.name && <span className="text-red-800">This field is required</span>}
                                 </div>
+
+                                <div>
+                                    <label htmlFor="PhotoURL" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Photo</label>
+                                    <input type="text" name="image" id="PhotoURL" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com"
+
+                                        {...register("image")}
+                                        {...register("image", { required: true })}
+                                    />
+                                    {errors.image && <span className="text-red-800">This field is required</span>}
+                                </div>
+
                                 <div>
                                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                                     <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com"

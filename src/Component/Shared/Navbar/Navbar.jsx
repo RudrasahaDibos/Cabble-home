@@ -15,7 +15,7 @@ const Navbar = () => {
                     console.log(error)
                 })
      }
-
+    
     const link = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/about'>About</NavLink></li>
@@ -66,7 +66,7 @@ const Navbar = () => {
                     user? <p className="lg:mr-2 text-sm ">{user.displayName}</p> : ''
                 }
                 {
-                    user ? <div className="dropdown dropdown-end">
+                    user? <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className=" drop btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
                         <img

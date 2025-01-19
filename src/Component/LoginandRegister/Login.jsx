@@ -1,25 +1,35 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { useForm } from "react-hook-form";
+
 import toast from "react-hot-toast";
+import { sendPasswordResetEmail } from "firebase/auth";
+import auth from "../Firebaseone/Firebase.init";
 
 
 const Login = () => {
     const { SignUser,googleuser,twitteruser  } = useContext(AuthContext)
+   const useRefEmail = useRef()
+    
+    
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm()
-
-    const onSubmit = (data) => {
-        const { email, password } = data
+    const onSubmit = (e) => {
+        e.preventDefault()
+        const email = e.target.email.value
+        const password = e.target.password.value
+        console.log(email, password)
         SignUser(email, password)
             .then(result => {
                 console.log(result.user)
+                if(result.user.emailVerified === true){
+             
                 toast.success("Successfully login")
+                }
+               if(result.user.emailVerified === false){
+                    toast.error('plz varified your email')
+                    return
+                }
+                
             })
             .then(error => {
                 console.log(error)
@@ -47,6 +57,31 @@ const Login = () => {
         })
     }
 
+    const handledorgottenpassword = () => {
+       
+         const email = useRefEmail.current.value
+        console.log(email)
+        if (!email) {
+           toast.error('please give me a  email address')
+          return;
+    
+        }
+        else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+          toast.error('Please give a vaild password')
+          return;
+        }
+    
+        // send vaildation email 
+        sendPasswordResetEmail(auth, email)
+          .then(() => {
+            toast.success('please check your email')
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    
+      }
+
     return (
         <div>
             <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -54,18 +89,18 @@ const Login = () => {
                 <div className="max-w-md w-full bg-gray-900 rounded-xl shadow-lg p-8">
                     <h2 className="text-2xl font-bold text-white mb-6 text-center">Sign In</h2>
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    <form onSubmit={onSubmit} className="space-y-4">
                         <div>
                             <label className="block text-sm font-medium text-white mb-1">Email</label>
                             <input
                                 type="email"
+                                ref={useRefEmail}
                                 name="email"
                                 className="w-full px-4 py-2 border text-white border-gray-300 rounded-lg dark:bg-gray-700  focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                                 placeholder="your@email.com"
-                                {...register("email")}
-                                {...register("email", { required: true })}
+                               
                             />
-                            {errors.email && <span>This field is required</span>}
+                           
                         </div>
 
                         <div>
@@ -75,18 +110,19 @@ const Login = () => {
                                 name="password"
                                 className="w-full px-4 py-2 border text-white border-gray-300 rounded-lg focus:ring-2 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                                 placeholder="••••••••"
-                                {...register("password")}
-                                {...register("password", { required: true })}
+                               
                             />
-                            {errors.password && <span>This field is required</span>}
+                           
                         </div>
 
                         <div className="flex items-center justify-between">
                             <label className="flex items-center">
-                                <input type="checkbox" className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                                <input type="checkbox" className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                 />
+                                 
                                 <span className="ml-2 text-sm text-gray-600">Remember me</span>
                             </label>
-                            <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                            <Link  onClick={handledorgottenpassword} className="text-sm text-indigo-600 hover:text-indigo-500">Forgot password?</Link>
                         </div>
 
                         <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors">

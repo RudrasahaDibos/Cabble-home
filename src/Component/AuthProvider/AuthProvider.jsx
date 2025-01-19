@@ -1,6 +1,6 @@
 
 
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, TwitterAuthProvider } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, TwitterAuthProvider, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebaseone/Firebase.init";
 
@@ -34,12 +34,22 @@ const AuthProvider = ({ children }) => {
         signInWithPopup(auth, Twitterprovider)
     }
 
+    // UpdateProfile 
+    const UpdateUserProfile =(name,image)=>{
+     return   updateProfile(auth.currentUser,{
+            displayName:name,
+            photoURL:image
+        })
+    } 
 
     // Obsavartion 
     useEffect(() => {
         const UnSubscription = onAuthStateChanged(auth, CurrentUser => {
             console.log("Current User is ", CurrentUser)
-            setuser(CurrentUser)
+            
+                setuser(CurrentUser)
+          
+       
 
             return () => {
                 UnSubscription()
@@ -49,7 +59,7 @@ const AuthProvider = ({ children }) => {
 
 
     const authInfo = {
-        user, Createuser, SignUser, Logout, googleuser,twitteruser 
+        user, Createuser, SignUser, Logout, googleuser,twitteruser,UpdateUserProfile
     }
     return (
         <AuthContext.Provider value={authInfo}>
