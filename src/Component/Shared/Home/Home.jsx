@@ -6,8 +6,8 @@ const Home = () => {
     return (
         <div>
             <h1>This is home</h1>
-            <Banner></Banner>
-            <div className="lg:mt-0 mt-8">
+            <div>  <Banner></Banner></div>
+            <div className="lg:mt-0 mt-8 container mx-auto">
             <Bannersecond></Bannersecond>
             </div>
         </div>

@@ -1,24 +1,39 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-
+import { IoEye,IoEyeOff} from "react-icons/io5";
 
 
 
 
 const Register = () => {
     const {Createuser} = useContext(AuthContext)
-    
+    const [password ,setpassword] = useState(false)
+    const [confirmpassword , setconfirmpassword] = useState(false)
+     const handlepasswordClick =()=>{
+        setpassword(!password)
+     }
+     const handleconfirpassword =()=>{
+        setconfirmpassword(!confirmpassword)
+     }
+
         const {
           register,
           handleSubmit,
           formState: { errors },
-        } = useForm()
+        } = useForm({
+            mode:"onTouched"
+        })
     
         const onSubmit = (data) =>{
         const {email,password} = data
+         
+
+
+
+
             Createuser(email,password)
             .then(result =>{
                 console.log(result.user)
@@ -49,7 +64,7 @@ const Register = () => {
                                     {...register("name")}
                                     {...register("name", { required: true })}
                                     />
-                                  {errors.name && <span>This field is required</span>}
+                                  {errors.name && <span className="text-red-800">This field is required</span>}
                                 </div>
                                 <div>
                                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
@@ -58,30 +73,59 @@ const Register = () => {
                                     {...register("email")}
                                     {...register("email", { required: true })}
                                     />
-                                  {errors.email && <span>This field is required</span>}
+                                  {errors.email && <span className="text-red-800">This field is required</span>}
                                 </div>
-                                <div>
-                                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                    <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                <div className="relative">
+                                    <label htmlFor="password" className={`block mb-2 text-sm font-medium text-white`}>Password</label>
+                                    <input type={password ? "password"  : "text"}  name="password" id="password" placeholder="••••••••" className={`bg-gray-50 border ${errors.password && "bg-red-700"} border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                                      {...register("password")}
-                                     {...register("password", { required: true })}
+                                     {...register("password", { required: "password is Required",
+                                        pattern:{
+                                           value:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                                           message:"Must include at least one uppercase letter, one lowercase letter, and one number May include special characters (!@#$%^&*)"
+                                        },
+                                        minLength:{
+                                            value:8,
+                                            message:'minimum Required length is 8'
+                                        },
+                                        maxLength:{
+                                            value:20,
+                                            message:"maximum length is 20"
+                                        }
+
+                                      })}
                                     />
-                                     {errors.password && <span>This field is required</span>}
+                                     {errors.password && <span className="text-red-600">{errors.password.message}</span>}
+                                     <div className="text-2xl  absolute text-white top-9 right-5 "> 
+                                        {
+                                            (password === false) ? <IoEye onClick={handlepasswordClick} />: <IoEyeOff   onClick={handlepasswordClick}  /> 
+                                        }
+                                     
+                                      </div>
                                 </div>
-                                <div>
+                                <div className="relative">
                                     <label htmlFor="confirm_password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                                    <input type="confirm_password" name="confirm_password" id="confirm_password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    <input type={confirmpassword ? 'password':'text'}name="confirm_password" id="confirm_password" placeholder="••••••••" className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                      {...register("confirm_password")}
-                                     {...register("confirm_password", { required: true })}
+                                     {...register("confirm_password", { required: true ,
+                                        
+
+                                      })}
                                     
                                     />
                                        {errors.confirm_password && <span>This field is required</span>}
+                                      <div className="text-2xl  absolute text-white top-9 right-5 "> 
+                                        {
+                                            (confirmpassword === false) ? <IoEye onClick={handleconfirpassword } />: <IoEyeOff   onClick={handleconfirpassword }  /> 
+                                        }
+                                     
+                                      </div> 
                                 </div>
                                 <div className="flex items-start">
                                     <div className="flex items-center h-5">
                                         <input id="terms" aria-describedby="terms" name="checked" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" 
                                          {...register("checked")}
-                                         {...register("checked", { required: true })}
+                                         {...register("checked", { required: true  })}
                                         
                                         />
                                         {errors.checked && <span>This field is required</span>}

@@ -27,7 +27,7 @@ const Navbar = () => {
     </>
 
     return (
-        <div className="navbar bg-base-100  fixed w-full top-0 left-0">
+        <div className="navbar bg-base-100  fixed w-full top-0 left-0 ">
             <div className="navbar-start max-w-7xl mx-auto">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -56,7 +56,7 @@ const Navbar = () => {
                 
                 Skyroof</a>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center  hidden  lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     {link}
                 </ul>
