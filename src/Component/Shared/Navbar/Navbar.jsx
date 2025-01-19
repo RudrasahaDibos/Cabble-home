@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { Result } from "postcss";
+
 
 
 const Navbar = () => {
@@ -61,19 +61,28 @@ const Navbar = () => {
                     {link}
                 </ul>
             </div>
-            <div className="navbar-end">
+            <div className="navbar-end w-full">
                 {
-                    user ?<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                    user? <p className="lg:mr-2 text-sm ">{user.displayName}</p> : ''
+                }
+                {
+                    user ? <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className=" drop btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
                         <img
                             alt="Tailwind CSS Navbar component"
-                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                            src={user.photoURL}/>
+                            
+                    </div>  
+                    <div className="">
+                    <button tabIndex={0} onClick={handleLogout} className="btn mt-2  border-red-400 dropdown-content">sign Out </button>
                     </div>
-                    <Link onClick={handleLogout} className="btn ">sign Out </Link>
-                </div> : <Link className="btn ">Login</Link>
+                    </div>
+                   </div> : <Link className="btn ">Login</Link>
                 }
+
                
-             
+                 
             </div>
         </div>
     );

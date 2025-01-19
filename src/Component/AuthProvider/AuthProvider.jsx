@@ -1,37 +1,46 @@
 
 
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, TwitterAuthProvider } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebaseone/Firebase.init";
 
 export const AuthContext = createContext(null)
-
-const AuthProvider = ({children}) => {
+const Googleprovider = new GoogleAuthProvider();
+const Twitterprovider = new TwitterAuthProvider();
+const AuthProvider = ({ children }) => {
     const [user, setuser] = useState(null)
 
     // createUser
     const Createuser = (email, password) => {
-       return  createUserWithEmailAndPassword(auth, email, password)
+        return createUserWithEmailAndPassword(auth, email, password)
     }
 
     //  SignUser
-    const SignUser = (email,password)=>{
-      return  signInWithEmailAndPassword(auth,email,password)
-    }
-   
-    // Logout
-    const Logout =()=>{
-      signOut(auth)   
+    const SignUser = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password)
     }
 
+    // Logout
+    const Logout = () => {
+        signOut(auth)
+    }
+
+    // Google User 
+    const googleuser = () => {
+        signInWithPopup(auth, Googleprovider)
+    }
+    //  twiiter user
+    const twitteruser = () => {
+        signInWithPopup(auth, Twitterprovider)
+    }
 
 
     // Obsavartion 
     useEffect(() => {
         const UnSubscription = onAuthStateChanged(auth, CurrentUser => {
-            console.log("Current User is ",CurrentUser)
-                setuser(CurrentUser)
-          
+            console.log("Current User is ", CurrentUser)
+            setuser(CurrentUser)
+
             return () => {
                 UnSubscription()
             }
@@ -40,7 +49,7 @@ const AuthProvider = ({children}) => {
 
 
     const authInfo = {
-        user, Createuser,SignUser,Logout 
+        user, Createuser, SignUser, Logout, googleuser,twitteruser 
     }
     return (
         <AuthContext.Provider value={authInfo}>
