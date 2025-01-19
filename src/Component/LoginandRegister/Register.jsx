@@ -66,7 +66,7 @@ const Register = () => {
 
     return (
         <div>
-            <section className=" bg-gray-100 mt-10">
+            <section className=" bg-gray-100 mt-20">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 max-w-7xl ">
 
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -104,7 +104,7 @@ const Register = () => {
                                     />
                                     {errors.email && <span className="text-red-800">This field is required</span>}
                                 </div>
-                                <div className="relative">
+                                <div className="lg:relative">
                                     <label htmlFor="password" className={`block mb-2 text-sm font-medium text-white`}>Password</label>
                                     <input type={passwordeye ? "password" : "text"} name="password" id="password" placeholder="••••••••" className={`bg-gray-50 border ${errors.password && "bg-red-700"} border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                                         {...register("password")}
@@ -133,7 +133,7 @@ const Register = () => {
 
                                     </div>
                                 </div>
-                                <div className="relative">
+                                <div className="lg:relative">
                                     <label htmlFor="confirm_password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                                     <input type={confirmpassword ? 'password' : 'text'}
                                 

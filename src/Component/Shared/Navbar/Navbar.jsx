@@ -61,7 +61,7 @@ const Navbar = () => {
                     {link}
                 </ul>
             </div>
-            <div className="navbar-end w-full">
+            <div className="navbar-end ">
                 {
                     user? <p className="lg:mr-2 text-sm ">{user.displayName}</p> : ''
                 }

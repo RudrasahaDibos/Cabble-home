@@ -16,6 +16,7 @@ import OurService from './Component/Pages/OurService/OurService';
 import OurTeam from './Component/Pages/OurTeam/OurTeam';
 import AuthProvider from './Component/AuthProvider/AuthProvider';
 import { Toaster } from 'react-hot-toast';
+import PrivateRoute from './Component/PrivateRoute/PrivateRoute';
 
 
 
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
       ,
       {
         path:'/ourservice',
-        element:<OurService></OurService>
+        element:<PrivateRoute><OurService></OurService></PrivateRoute>
       },
       {
         path:'/ourteam',
