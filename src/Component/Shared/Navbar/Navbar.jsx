@@ -27,8 +27,9 @@ const Navbar = () => {
     </>
 
     return (
-        <div className="navbar bg-base-100  fixed w-full top-0 left-0 ">
-            <div className="navbar-start max-w-7xl mx-auto">
+        <div className="navbar bg-base-100 w-80 fixed lg:w-full top-0 left-0 ">
+          
+            <div className="navbar-start ">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                         <svg
@@ -56,14 +57,14 @@ const Navbar = () => {
                 
                 Skyroof</a>
             </div>
-            <div className="navbar-center  hidden  lg:flex">
+            <div className="navbar-center  hidden  lg:flex  ">
                 <ul className="menu menu-horizontal px-1">
                     {link}
                 </ul>
             </div>
             <div className="navbar-end ">
                 {
-                    user? <p className="lg:mr-2 text-sm ">{user.displayName}</p> : ''
+                    user? <p className="lg:mr-2 text-sm lg:flex hidden">{user.displayName}</p> : ''
                 }
                 {
                     user? <div className="dropdown dropdown-end">
@@ -84,6 +85,7 @@ const Navbar = () => {
                
                  
             </div>
+        
         </div>
     );
 };
