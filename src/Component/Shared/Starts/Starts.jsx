@@ -1,9 +1,12 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 import SlotCounter from 'react-slot-counter';
 
 const Starts = () => {
-
+useEffect(()=>{
+        AOS.init()
+     },[])
     return (
         <div data-aos="fade-left" className="p-4 my-6 md:p-8  dark:text-gray-800 ">
             <div className="container grid grid-cols-1 gap-6 m-4 mx-auto md:m-0 md:grid-cols-2 xl:grid-cols-3">

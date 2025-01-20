@@ -1,11 +1,15 @@
 import banner1 from '../../../../assets/hotel.jpg'
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import ProgressBar from "@ramonak/react-progress-bar";
+import { useEffect } from 'react';
 const Premium = () => {
-
+  useEffect(()=>{
+        AOS.init()
+     },[])
     return (
-        <div className="lg:flex gap-8  container mx-auto">
-            <div className="lg:w-2/4 border-red-600">
+        <div   className="lg:flex gap-8  container mx-auto">
+            <div  data-aos="fade-right" className="lg:w-2/4 border-red-600">
                 <div className="p-5 3 mx-auto sm:p-10 md:p-16 b  text-gray-100 dark:text-gray-800">
                     <div className="flex flex-col max-w-3xl mx-auto overflow-hidden rounded">
                         <img src={banner1} alt="" className="w-full h-60 sm:h-96 bg-gray-500 dark:bg-gray-500" />
@@ -20,7 +24,7 @@ const Premium = () => {
                 </div>
             </div>
 
-            <div className="lg:w-2/4 border-red-900" >
+            <div  data-aos="fade-left" className="lg:w-2/4 border-red-900" >
                   <h1 className="text-5xl font-semibold lg:mt-20 lg:text-start text-center">Search no more if you are looking <br />  for a premium roof</h1>
                   <p className='mt-4 lg:text-start text-center'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                      Harum et ipsam debitis, culpa iste pariatur provident, quasi

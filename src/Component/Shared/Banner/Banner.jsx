@@ -2,6 +2,7 @@
 
 
 const Banner = () => {
+    
     return (
 
         <div className="bg-white dark:bg-gray-900 lg:text-start text-center">
