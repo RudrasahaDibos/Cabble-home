@@ -17,6 +17,7 @@ import OurTeam from './Component/Pages/OurTeam/OurTeam';
 import AuthProvider from './Component/AuthProvider/AuthProvider';
 import { Toaster } from 'react-hot-toast';
 import PrivateRoute from './Component/PrivateRoute/PrivateRoute';
+import Ourgallary from './Component/Pages/OurGallary/Ourgallary';
 
 
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path:'/ourteam',
         element:<OurTeam></OurTeam>
+      },
+      {
+        path:'/ourgallary',
+        element:<PrivateRoute><Ourgallary></Ourgallary></PrivateRoute>
       }
     ]
   },

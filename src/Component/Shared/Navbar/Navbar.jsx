@@ -20,10 +20,14 @@ const Navbar = () => {
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/about'>About</NavLink></li>
         <li><NavLink to='/contact'>Contact</NavLink></li>
+         {
+            user ?  <li><NavLink to='/ourgallary'>OurGallery</NavLink></li> : ''
+         }
         <li><NavLink to='/ourservice'>OurService</NavLink></li>
         <li><NavLink to='/ourteam'>Ourteam</NavLink></li>
         <li><NavLink to='/login'>Login</NavLink></li>
         <li><NavLink to='/register'>Register</NavLink></li>
+        
     </>
 
     return (

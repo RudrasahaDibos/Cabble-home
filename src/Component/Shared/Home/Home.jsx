@@ -18,6 +18,7 @@ const Home = () => {
             <div>
                 <Industry></Industry>
             </div>
+            
         </div>
     );
 };
