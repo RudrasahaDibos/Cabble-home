@@ -18,6 +18,7 @@ import AuthProvider from './Component/AuthProvider/AuthProvider';
 import { Toaster } from 'react-hot-toast';
 import PrivateRoute from './Component/PrivateRoute/PrivateRoute';
 import Ourgallary from './Component/Pages/OurGallary/Ourgallary';
+import OurServicedetails from './Component/Pages/OurService/OurServicedetails';
 
 
 
@@ -49,7 +50,13 @@ const router = createBrowserRouter([
       ,
       {
         path:'/ourservice',
-        element:<PrivateRoute><OurService></OurService></PrivateRoute>
+        element:<OurService></OurService>,
+        loader:()=>fetch('/Services.json')
+      },
+      {
+             path:'/service/:id',
+             element:<PrivateRoute><OurServicedetails></OurServicedetails></PrivateRoute>,
+             loader:()=> fetch('/Services.json')
       },
       {
         path:'/ourteam',

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -15,6 +15,7 @@ const Register = () => {
     const { Createuser,UpdateUserProfile } = useContext(AuthContext)
     const [passwordeye, setpassword] = useState(false)
     const [confirmpassword, setconfirmpassword] = useState(false)
+    const Navigate = useNavigate()
     const handlepasswordClick = () => {
         setpassword(!passwordeye)
     }
@@ -43,7 +44,11 @@ const Register = () => {
             .then(result => {
                 UpdateUserProfile(name,image)
                 .then(()=>{
+                    if(result.user){
+                        Navigate('/')
+                    }
                     console.log(result.user)
+
                     console.log(toast.success('Successfully login'))
                 })
                 .catch(error =>{

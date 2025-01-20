@@ -1,5 +1,5 @@
 import { useContext, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 import toast from "react-hot-toast";
@@ -10,8 +10,12 @@ import auth from "../Firebaseone/Firebase.init";
 const Login = () => {
     const { SignUser,googleuser,twitteruser  } = useContext(AuthContext)
    const useRefEmail = useRef()
-    
-    
+    const Navigate = useNavigate()
+    const location = useLocation()
+    console.log(location)
+
+   
+   
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -20,9 +24,12 @@ const Login = () => {
         console.log(email, password)
         SignUser(email, password)
             .then(result => {
-                console.log(result.user)
+            
+                if(result.user){
+                    Navigate(location?.state ? location?.state : "/")
+                }
                 if(result.user.emailVerified === true){
-             
+                
                 toast.success("Successfully login")
                 }
                if(result.user.emailVerified === false){
@@ -41,7 +48,11 @@ const Login = () => {
     const handlegoolelogin =()=>{
           googleuser()
           .then(result =>{
-             console.log(result.user)
+            
+             if(result.user){
+                Navigate(location?.state ? location.state : "/")
+             }
+            
           })
           .catch(error =>{
             console.log(error)
@@ -50,7 +61,10 @@ const Login = () => {
     const handletwitterlogin =()=>{
         twitteruser()
         .then(result =>{
-            console.log(result.user)
+            
+            if(result.user){
+                Navigate(location?.state ? location.state : "/")
+            }
         })
         .catch(error =>{
             console.log(error)
